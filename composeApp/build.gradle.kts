@@ -71,15 +71,15 @@ kotlin {
 }
 
 android {
-    namespace = "com.clovergames.avaloncli"
+    namespace = "com.farbridge.astrodu"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.clovergames.avaloncli"
+        applicationId = "com.farbridge.astrodu"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
     }
     packaging {
         resources {

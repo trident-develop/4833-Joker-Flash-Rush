@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:197217960224:android:a6803f06f99776ee7f1745",
+        "mobilesdk_app_id": "1:197217960224:android:fce6e829ce1c21147f1745",
         "android_client_info": {
-          "package_name": "com.clovergames.avaloncli"
+          "package_name": "com.farbridge.astrodu"
         }
       },
       "oauth_client": [],
