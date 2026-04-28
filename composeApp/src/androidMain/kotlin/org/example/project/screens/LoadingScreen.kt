@@ -1,5 +1,6 @@
 package org.example.project.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseInOutCubic
@@ -14,6 +15,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,7 +25,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,13 +45,14 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.farbridge.astrodu.R
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-// Hardcoded dark colors so the loading screen is always dark regardless of theme
 private object LoadingColors {
     val DarkChocolate = Color(0xFF1A0F0A)
     val Espresso = Color(0xFF2A1A12)
@@ -71,7 +73,7 @@ private data class Particle(
 @Composable
 fun LoadingScreen() {
     val infiniteTransition = rememberInfiniteTransition()
-
+    BackHandler(enabled = true) {}
     // Card animations
     val card1Rot by infiniteTransition.animateFloat(
         initialValue = -15f, targetValue = -5f,
@@ -160,6 +162,12 @@ fun LoadingScreen() {
             .background(Brush.verticalGradient(listOf(LoadingColors.DarkChocolate, LoadingColors.Espresso, LoadingColors.DarkChocolate))),
         contentAlignment = Alignment.Center
     ) {
+        Image(
+            painter = androidx.compose.ui.res.painterResource(id = R.drawable.bg_1),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
         // Particles layer
         Canvas(modifier = Modifier.fillMaxSize()) {
             particles.forEach { p ->

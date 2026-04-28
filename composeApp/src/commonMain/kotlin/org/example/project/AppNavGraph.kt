@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.example.project.platform.PlatformBackHandler
+import org.example.project.platform.rememberAppExiter
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -132,8 +133,9 @@ fun AppNavGraph(
         return
     }
 
-    PlatformBackHandler(enabled = selectedTab != BottomTab.Home) {
-        selectedTab = BottomTab.Home
+    val exitApp = rememberAppExiter()
+    PlatformBackHandler(enabled = true) {
+        if (selectedTab == BottomTab.Home) exitApp() else selectedTab = BottomTab.Home
     }
 
     Scaffold(

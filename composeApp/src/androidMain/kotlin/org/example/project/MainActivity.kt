@@ -10,19 +10,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import org.example.project.screens.privacy.Show3
+import org.koin.android.ext.android.get
 
 class MainActivity : ComponentActivity() {
-    private var controller: WindowInsetsControllerCompat? = null
+    private fun hideSystemBars() {
+        val controller = WindowInsetsControllerCompat(window, window.decorView)
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+    }
     private var multiTouchDetected = false
+    lateinit var show3: Show3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        controller = WindowInsetsControllerCompat(window, window.decorView)
-        controller?.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        controller?.hide(WindowInsetsCompat.Type.systemBars())
+        hideSystemBars()
+        show3 = Show3(this, get(), get())
         setContent {
             App()
         }
@@ -30,9 +36,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            controller?.hide(WindowInsetsCompat.Type.systemBars())
-        }
+        if (hasFocus) hideSystemBars()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -56,10 +60,9 @@ class MainActivity : ComponentActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-}
 
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
+    override fun onDestroy() {
+        show3.destroy()
+        super.onDestroy()
+    }
 }

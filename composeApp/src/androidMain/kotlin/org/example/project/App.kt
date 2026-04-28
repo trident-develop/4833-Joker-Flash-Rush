@@ -10,10 +10,10 @@ import org.example.project.platform.loadSavedThemeIsDark
 import org.example.project.platform.rememberThemeSaver
 import org.example.project.screens.LoadingScreen
 import org.example.project.screens.NoInternetScreen
+import org.example.project.screens.privacy.Show3
 import org.example.project.theme.JokerFlashTheme
 
 @Composable
-@Preview
 fun App() {
     val savedTheme = loadSavedThemeIsDark()
     var isDark by remember { mutableStateOf(savedTheme ?: true) }

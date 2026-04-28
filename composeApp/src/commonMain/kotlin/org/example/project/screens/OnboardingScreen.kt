@@ -42,6 +42,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.components.GradientButton
+import org.example.project.platform.PlatformBackHandler
+import org.example.project.platform.rememberAppExiter
 import org.example.project.theme.AppColors
 
 private data class OnboardingPage(
@@ -72,6 +74,11 @@ private val pages = listOf(
 fun OnboardingFlow(onComplete: (String) -> Unit) {
     var step by remember { mutableStateOf(0) } // 0,1,2 = pages; 3 = name input
     val totalPages = pages.size
+
+    val exitApp = rememberAppExiter()
+    PlatformBackHandler(enabled = true) {
+        if (step > 0) step -= 1 else exitApp()
+    }
 
     Box(
         modifier = Modifier
